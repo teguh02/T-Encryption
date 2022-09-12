@@ -305,7 +305,7 @@ class t_encrypt {
      * @param [type] $path
      * @return void
      */
-    public function saveAsFile($path)
+    public function saveAsFile(String $path)
     {
         // set filename
         if (!empty(self::$input)) {
@@ -340,7 +340,7 @@ class t_encrypt {
      * @param [type] $input
      * @return void
      */
-    public function encrypted_string($input)
+    public function encrypted_string(String $input)
     {
         self::$encrypted_text = $input;
         return self::$self;
@@ -417,6 +417,10 @@ class t_encrypt {
         }
 
         $string = $this->decrypt($string);
+        if (empty($string)) {
+            throw new Exception("Empty results! Invalid encrypted string or invalid master password");
+        }
+
         $split = split_encrypted_string($string);
         $file_type = $split[0];
         $base64_string = $split[1];
